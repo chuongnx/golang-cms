@@ -7,8 +7,8 @@ import (
 	"mime/multipart"
 	"strconv"
 
-	"github.com/dionyself/golang-cms/models"
-	"github.com/dionyself/golang-cms/utils"
+	"github.com/chuongnx/golang-cms/models"
+	"github.com/chuongnx/golang-cms/utils"
 )
 
 type AjaxController struct {

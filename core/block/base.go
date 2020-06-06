@@ -1,11 +1,11 @@
 package block
 
 import (
-	_ "github.com/dionyself/beego"
-	_ "github.com/dionyself/beego/orm"
-	"github.com/dionyself/golang-cms/core/lib/cache"
-	"github.com/dionyself/golang-cms/core/lib/db"
-	"github.com/dionyself/golang-cms/models"
+	_ "github.com/chuongnx/beego"
+	_ "github.com/chuongnx/beego/orm"
+	"github.com/chuongnx/golang-cms/core/lib/cache"
+	"github.com/chuongnx/golang-cms/core/lib/db"
+	"github.com/chuongnx/golang-cms/models"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"

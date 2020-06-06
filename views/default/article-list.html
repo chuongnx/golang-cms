@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-success" onclick="javascript:window.location='/article/0/edit'">Thêm mới</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th class="text-center">Tiêu đề</th>
+                        <th class="text-center">Thời gian tạo</th>
+                        <th class="text-center">Trạng thái</th>
+                        <th class="text-center" colspan="2">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range .Articles }}
+                    <tr>
+                        <td>{{.Id}}</td>
+                        <td>{{.Title}}</td>
+                        <td class="text-center">{{.CreateTime}}</td>
+                        <td class="text-center">{{.Status}}</td>
+                        <td class="text-center"><a href="/article/{{.Id}}/edit">Sửa</a></td>
+                        <td class="text-center"><a href="/article/{{.Id}}/del">Xóa</a></td>
+                    </tr>
+                    {{ end }}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        {{if gt .paginator.PageNums 1}}
+        <ul class="pagination">
+            {{if .paginator.HasPrev}}
+            <li><a href="{{.paginator.PageLinkFirst}}">{{ "Đầu"}}</a></li>
+            <li><a href="{{.paginator.PageLinkPrev}}">&lt;</a></li>
+            {{else}}
+            <li class="disabled"><a>{{ "Đầu"}}</a></li>
+            <li class="disabled"><a>&lt;</a></li>
+            {{end}} {{range $index, $page := .paginator.Pages}}
+            <li{{if $.paginator.IsActive .}} class="active" {{end}}>
+                <a href="{{$.paginator.PageLink $page}}">{{$page}}</a>
+                </li>
+                {{end}} {{if .paginator.HasNext}}
+                <li><a href="{{.paginator.PageLinkNext}}">&gt;</a></li>
+                <li><a href="{{.paginator.PageLinkLast}}">{{  "Cuối"}}</a></li>
+                {{else}}
+                <li class="disabled"><a>&gt;</a></li>
+                <li class="disabled"><a>{{  "Cuối"}}</a></li>
+                {{end}}
+        </ul>
+        {{end}}
+    </div>
+</div>
+<div style="display:none;">
+    <div class="hero-text">
+        <h1>Welcome to phim247.me</h1>
+        <p class="description">
+            Golang-CMS is a full & powerful Go web content management system which is inspired by djando-cms.
+            <br /> Official website: <a href="http://{{.Website}}">{{.Website}}</a>
+            <br /> Contact me: {{.Email}}
+            <br /> 111{{ .ModuleMenu }}111 {{ range .Categories }} cat{{.Name}} {{ end }} {{.phim}}
+            <br> you are visiting the page from a {{.device_type}} device
+            <br> To get more info please: <a href="http://{{.Website}}/register">Register</a> OR <a href="http://{{.Website}}/login">login</a>
+        </p>
+    </div>
+</div>

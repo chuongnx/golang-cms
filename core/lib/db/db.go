@@ -3,8 +3,8 @@ package db
 import (
 	"fmt"
 
-	"github.com/dionyself/beego"
-	"github.com/dionyself/beego/orm"
+	"github.com/chuongnx/beego"
+	"github.com/chuongnx/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"

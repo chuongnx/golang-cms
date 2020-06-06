@@ -15,8 +15,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/dionyself/beego"
-	"github.com/dionyself/cutter"
+	"github.com/chuongnx/beego"
+	"github.com/chuongnx/cutter"
 )
 
 var ImageSizes map[string][2]int

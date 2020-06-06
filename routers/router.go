@@ -1,9 +1,9 @@
 package routers
 
 import (
-	"github.com/dionyself/beego"
-	"github.com/dionyself/golang-cms/controllers"
-	"github.com/dionyself/golang-cms/core/template"
+	"github.com/chuongnx/beego"
+	"github.com/chuongnx/golang-cms/controllers"
+	"github.com/chuongnx/golang-cms/core/template"
 )
 
 func init() {
@@ -19,8 +19,11 @@ func init() {
 	beego.Router("/login", &controllers.LoginController{}, "get:LoginView;post:Login")
 	beego.Router("/logout", &controllers.LoginController{}, "get:Logout")
 	beego.Router("/register", &controllers.LoginController{}, "get:RegisterView;post:Register")
+	beego.Router("/article", &controllers.ArticleController{}, "get:GetAll")
 	beego.Router("/article/:id:int/:action:string", &controllers.ArticleController{})
-
+	beego.Router("/view/:id:int", &controllers.ViewController{})
+	beego.Router("/channel/:page:int", &controllers.IndexController{}, "get:GetPage")
+	beego.Router("/video/:videoid", &controllers.ViewController{}, "get:Video")
 	// User requests
 	beego.Router("/ajax/image/:id:int", &controllers.AjaxController{}, "get:GetImageUploadStatus;post:PostImage")
 	beego.Router("/profile/:id:int/:action:string", &controllers.ProfileController{}, "get:UserPanelView")

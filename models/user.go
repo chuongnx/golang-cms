@@ -3,7 +3,7 @@ package models
 import (
 	"time"
 
-	"github.com/dionyself/beego/orm"
+	"github.com/chuongnx/beego/orm"
 )
 
 // User model

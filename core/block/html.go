@@ -3,9 +3,9 @@ package block
 import (
 	"encoding/json"
 
-	_ "github.com/dionyself/beego"
-	_ "github.com/dionyself/beego/orm"
-	"github.com/dionyself/golang-cms/models"
+	_ "github.com/chuongnx/beego"
+	_ "github.com/chuongnx/beego/orm"
+	"github.com/chuongnx/golang-cms/models"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"

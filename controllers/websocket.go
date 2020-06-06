@@ -4,11 +4,11 @@ package controllers
 import (
 	"fmt"
 	"strconv"
-	"github.com/dionyself/golang-cms/models"
+	"github.com/chuongnx/golang-cms/models"
 	"encoding/json"
 	"net/http"
-	"github.com/dionyself/beego"
-	"github.com/dionyself/websocket"
+	"github.com/chuongnx/beego"
+	"github.com/chuongnx/websocket"
 )
 
 // WebSocketController handles WebSocket requests.

@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"reflect"
 
-	"github.com/dionyself/beego"
+	"github.com/chuongnx/beego"
 )
 
 /*

@@ -3,16 +3,16 @@ package controllers
 import (
 	"strconv"
 
-	"github.com/dionyself/beego"
-	"github.com/dionyself/beego/context"
-	"github.com/dionyself/beego/orm"
-	"github.com/dionyself/golang-cms/core/block"
-	"github.com/dionyself/golang-cms/core/defaults"
-	"github.com/dionyself/golang-cms/core/lib/cache"
-	database "github.com/dionyself/golang-cms/core/lib/db"
-	"github.com/dionyself/golang-cms/core/template"
-	"github.com/dionyself/golang-cms/utils"
-	"github.com/dionyself/gomobiledetect"
+	"github.com/chuongnx/beego"
+	"github.com/chuongnx/beego/context"
+	"github.com/chuongnx/beego/orm"
+	"github.com/chuongnx/golang-cms/core/block"
+	"github.com/chuongnx/golang-cms/core/defaults"
+	"github.com/chuongnx/golang-cms/core/lib/cache"
+	database "github.com/chuongnx/golang-cms/core/lib/db"
+	"github.com/chuongnx/golang-cms/core/template"
+	"github.com/chuongnx/golang-cms/utils"
+	mobiledetect "github.com/chuongnx/gomobiledetect"
 )
 
 // BaseController Extendable

@@ -34,10 +34,10 @@ Quick Start
 
 To compile and run the installer execute. (you will need to use GO v1.7.4 or later)
 
-- go get -u  github.com/dionyself/beego
+- go get -u  github.com/chuongnx/beego
 - go get -u  github.com/beego/bee
-- go get -u  github.com/dionyself/golang-cms
-- cd $GOPATH/src/github.com/dionyself/golang-cms
+- go get -u  github.com/chuongnx/golang-cms
+- cd $GOPATH/src/github.com/chuongnx/golang-cms
 - bee run
 
 Browse 127.0.0.1:8080 to see GolangCMS running.
@@ -68,14 +68,14 @@ You will need to run the demo locally.
 If you are using Docker you can run a golang-cms instance on port 8080
 just run:
 
-- docker run -p 8080:8080 dionyself/golang-cms:latest
+- docker run -p 8080:8080 chuongnx/golang-cms:latest
 Browse 127.0.0.1:8080 to see the demo.
 
 if you can't see the demo please contact me.
 
 To run unittests.
 
- - goconvey $GOPATH/src/github.com/dionyself/golang-cms/tests/
+ - goconvey $GOPATH/src/github.com/chuongnx/golang-cms/tests/
 
 Donations.
 

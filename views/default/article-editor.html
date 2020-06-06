@@ -1,45 +1,67 @@
-        {{.form.InvalidFields}}
-        <form method="post">
-          <label for="title">Title</label>
-          <input type="text" id="title" name="title" value="{{.form.Title}}">
-          <div>
-             <label for="category">Choose a Category:</label>
-             <select id="category" name="category" class="browser-default">
-               {{ if not .form.Category}}<option value="" disabled selected>No Category selected</option>{{end}}
-               {{ range .Categories }}
-               <option value="{{.Id}}" {{if eq .Id $.form.Category}}selected{{end}}>{{.Name}}</option>
-               {{ end }}
-             </select>
-          </div>
-          <i class="material-icons prefix">mode_edit</i>
-          <label for="content">Content</label>
-          <textarea name="content" id="content" rows="10" cols="80">
-                {{.form.Content}}
-          </textarea>
-          <script type="text/javascript">
-                $( document ).ready(function() {
-                    CKEDITOR.replace("content");
-                 });
-           </script>
-           <label for="topic-tags">Topic tags</label>
-           <input type="text" id="topic-tags" name="topic-tags" value="{{.form.TopicTags}}">
-           <div class="switch">
-             Comments:
-             <label>
-               Off
-               <input type="checkbox" name="allow-comments" {{if .form.AllowComments}}checked{{end}}>
-               <span class="lever"></span>
-               On
-             </label>
-             Reviews:
-             <label>
-               Off
-               <input type="checkbox" name="allow-reviews" {{if .form.AllowReviews}}checked{{end}}>
-               <span class="lever"></span>
-               On
-             </label>
-           </div>
-           <label for="tagged-users">Tag Friends</label>
-           <input type="text" id="tagged-users" name="tagged-users" value="{{.form.TaggedUsers}}">
-           <button type="submit">Save Article</button>
-        </form>
+{{.form.InvalidFields}}
+<form method="post" role="form">
+    <div class="form-group">
+        <label for="title">Tiêu đề</label>
+        <input type="text" class="form-control" id="title" placeholder="Nhập tiêu đề" value="{{.Article.Title}}">
+    </div>
+    <div class="form-group">
+        <label for="title">Tên file</label>
+        <input type="text" class="form-control" id="title" placeholder="Nhập tên file" value="{{.Article.FileName}}">
+    </div>
+    <div class="form-group">
+        <label for="category">Chọn chuyên mục</label>
+        <select id="category" name="category" class="form-control">
+            {{ if not .Article.Category}}<option value="" disabled selected>Chọn chuyên mục</option>{{end}}
+            {{ range .Categories }}
+            <option value="{{.Id}}" {{if eq .Id $.form.Category}}selected{{end}}>{{.Name}}</option>
+            {{ end }}
+        </select>
+    </div>
+    <div class="form-group">
+        <i class="material-icons prefix">mode_edit</i>
+        <label for="shortcontent">Nội dung ngắn gọn</label>
+        <textarea name="shortcontent" id="shortcontent" rows="10" cols="80" form-control>
+          {{.Article.ShortContent}}
+        </textarea>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                CKEDITOR.replace("shortcontent");
+            });
+        </script>
+    </div>
+    <div class="form-group">
+        <i class="material-icons prefix">mode_edit</i>
+        <label for="content">Nội dung</label>
+        <textarea name="content" id="content" rows="10" cols="80" form-control>
+              {{.Article.Content}}
+        </textarea>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                CKEDITOR.replace("content");
+            });
+        </script>
+    </div>
+    <div class="form-group">
+        <label for="topic-tags">Thẻ chủ đề</label>
+        <input type="text" id="topic-tags" name="topic-tags" class="form-control" value="{{.form.TopicTags}}">
+    </div>
+    <div class="checkbox">
+        <label>
+        <input type="checkbox" name="allow-comments" {{if .form.AllowComments}}checked{{end}}> Comments
+      </label>
+    </div>
+    <div class="checkbox">
+        <label>
+          <input type="checkbox" name="allow-reviews" {{if .form.AllowReviews}}checked{{end}}> Reviews
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="tagged-users">Tag Friends</label>
+        <input type="text" id="tagged-users" name="tagged-users" class="form-control" value="{{.form.TaggedUsers}}">
+    </div>
+
+    <div class="col-md-12">
+        <button type="submit" class="btn btn-danger">Lưu lại</button>
+        <button type="button" class="btn btn-success" onclick="javascript:window.location='/article'">Quay lại</button>
+    </div>
+</form>

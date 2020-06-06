@@ -3,12 +3,12 @@ package controllers
 import (
 	"fmt"
 
-	"github.com/dionyself/golang-cms/models"
-	"github.com/dionyself/golang-cms/utils"
+	"github.com/chuongnx/golang-cms/models"
+	"github.com/chuongnx/golang-cms/utils"
 
-	"github.com/dionyself/beego"
-	"github.com/dionyself/beego/context"
-	"github.com/dionyself/beego/orm"
+	"github.com/chuongnx/beego"
+	"github.com/chuongnx/beego/context"
+	"github.com/chuongnx/beego/orm"
 )
 
 var sessionName = beego.AppConfig.String("SessionName")
@@ -117,6 +117,7 @@ func VerifyUser(user *models.User, username, password string) (success bool) {
 	if HasUser(user, username) == false {
 		return
 	}
+	print("test")
 	if VerifyPassword(password, user.Password) {
 		success = true
 	}

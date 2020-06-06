@@ -4,12 +4,44 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/dionyself/golang-cms/models"
+	"github.com/chuongnx/beego/utils/pagination"
+	"github.com/chuongnx/golang-cms/models"
 )
 
 // ArticleController ...
 type ArticleController struct {
 	BaseController
+}
+
+func (CTRL *ArticleController) GetAll() {
+	pageSize := int(12)
+	//page := int64(1)
+	db := CTRL.GetDB("default")
+	CTRL.ConfigPage("article-list.html")
+	cats := new([]*models.Category)
+	db.QueryTable("category").All(cats)
+	CTRL.Data["Categories"] = *cats
+
+	//offset := (page - 1) * pageSize
+	articles := new([]*models.Article)
+	total, _ := db.QueryTable("article").Count()
+	paginator := pagination.SetPaginator(CTRL.Ctx, pageSize, total)
+	db.QueryTable("article").OrderBy("-title").Limit(pageSize, paginator.Offset()).All(articles)
+	/*
+		filters := make([]interface{}, 0)
+		//filters = append(filters, "status", 1)
+		//filters = append(filters, "class_id", 5)
+		result, _ := models.GetListArticle(1, 6, filters...)
+		query := orm.NewOrm().QueryTable("Article")
+		page = 1
+		pageSize = 10
+		offset := (page - 1) * pageSize
+		query.OrderBy("-orderid", "-id").Limit(pageSize, offset).All(&list)
+	*/
+	println("paginator.Offset() 1", paginator.Offset())
+	CTRL.Data["paginator"] = paginator
+	CTRL.Data["Articles"] = articles
+
 }
 
 // Get Displays Article by id
@@ -30,7 +62,7 @@ func (CTRL *ArticleController) Get() {
 		Art.Id = ArtID
 		db.Read(Art, "Id")
 		CTRL.Data["Article"] = Art
-		CTRL.ConfigPage("article.html")
+		CTRL.ConfigPage("article-editor.html")
 	}
 }
 
@@ -64,6 +96,7 @@ func (CTRL *ArticleController) Post() {
 			db.Insert(Art)
 			CTRL.Data["Article"] = Art
 			CTRL.ConfigPage("article.html")
+			CTRL.Redirect("/article", 302)
 		}
 	}
 }

@@ -3,7 +3,7 @@ package controllers
 import (
 	"strconv"
 
-	"github.com/dionyself/golang-cms/models"
+	"github.com/chuongnx/golang-cms/models"
 )
 
 // ProfileController for users

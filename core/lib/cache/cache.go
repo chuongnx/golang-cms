@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/dionyself/beego"
-	redisCache "github.com/dionyself/beego/cache/redis"
+	"github.com/chuongnx/beego"
+	redisCache "github.com/chuongnx/beego/cache/redis"
 	internalCache "github.com/patrickmn/go-cache"
 )
 

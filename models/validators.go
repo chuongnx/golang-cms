@@ -1,9 +1,9 @@
 package models
 
 import (
-	"github.com/dionyself/beego"
-	"github.com/dionyself/beego/validation"
-	"github.com/dionyself/golang-cms/utils"
+	"github.com/chuongnx/beego"
+	"github.com/chuongnx/beego/validation"
+	"github.com/chuongnx/golang-cms/utils"
 )
 
 // Validate RegisterForm data

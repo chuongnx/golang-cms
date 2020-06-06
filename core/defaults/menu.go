@@ -1,8 +1,8 @@
 package defaults
 
 import (
-	"github.com/dionyself/beego"
-	"github.com/dionyself/golang-cms/core/defaults/modules"
+	"github.com/chuongnx/beego"
+	"github.com/chuongnx/golang-cms/core/defaults/modules"
 )
 
 // GetDefaultMenu get menu

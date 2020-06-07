@@ -50,7 +50,7 @@ func InsertDemoData() bool {
 	for _, f := range files {
 
 		article := models.Article{
-			Key:          strings.ReplaceAll(strings.Split(f.Name(), ".")[0], " ", "-"),
+			Key:          strings.Split(f.Name(), ".")[0],
 			FileName:     f.Name(),
 			Title:        strings.Split(f.Name(), ".")[0],
 			ShortContent: strings.Split(f.Name(), ".")[0],

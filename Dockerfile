@@ -6,6 +6,8 @@ RUN apk add --no-cache git gcc g++ \
  && go get -u github.com/beego/bee \
     && go get -u github.com/chuongnx/golang-cms
 
+VOLUME /movies
+
 EXPOSE 8080 8088
 
 # Start app

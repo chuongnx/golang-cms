@@ -29,7 +29,7 @@ func (CTRL *ViewController) Get() {
 		db.Read(Art, "Id")
 		CTRL.Data["Article"] = Art
 		//todo
-		Art.FileName = "IndependenceDayResurgence2016720pHDRip.mp4"
+		//Art.FileName = "IndependenceDayResurgence2016720pHDRip.mp4"
 		filename, err := utils.Encrypt(Art.FileName, []byte("testtesttesttesttesttest"))
 		if err != nil {
 			// TODO: Properly handle error
@@ -49,7 +49,7 @@ func (CTRL *ViewController) Video() {
 	if err != nil {
 		CTRL.Abort("403")
 	}
-	fullPath := "E:/Movies/" + filename
+	fullPath := "/movies/ipad/" + filename
 	//path := "E:/Movies/IndependenceDayResurgence2016720pHDRip.mp4"
 	println("path", fullPath)
 	file, err := os.Open(fullPath)

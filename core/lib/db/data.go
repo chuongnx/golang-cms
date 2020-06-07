@@ -43,7 +43,7 @@ func InsertDemoData() bool {
 	db.Insert(&htmlblock)
 
 	fmt.Println("\nDoc thu muc\n")
-	files, err := ioutil.ReadDir("E:/Movies/ThreeKingdoms2010")
+	files, err := ioutil.ReadDir("/movies/ipad")
 	if err != nil {
 		log.Fatal(err)
 	}

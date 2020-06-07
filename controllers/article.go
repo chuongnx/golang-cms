@@ -95,8 +95,24 @@ func (CTRL *ArticleController) Post() {
 			Art.AllowComments = form.AllowComments
 			db.Insert(Art)
 			CTRL.Data["Article"] = Art
-			CTRL.ConfigPage("article.html")
+			//CTRL.ConfigPage("article.html")
 			CTRL.Redirect("/article", 302)
 		}
+	}
+}
+
+// Post create/update article
+func (CTRL *ArticleController) Delete() {
+	ArtID, err := strconv.Atoi(CTRL.Ctx.Input.Param(":id"))
+	if err != nil {
+		CTRL.Abort("403")
+	}
+	db := CTRL.GetDB("default")
+	if ArtID > 0 {
+		Art := new(models.Article)
+		Art.Id = ArtID
+		db.Delete(Art, "Id")
+		CTRL.Data["Article"] = Art
+		CTRL.Redirect("/article", 302)
 	}
 }

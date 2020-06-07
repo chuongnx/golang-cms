@@ -31,6 +31,7 @@ func init() {
 	// filters
 	beego.InsertFilter("/profile/:id:int/show", beego.BeforeRouter, controllers.AuthRequest)
 	beego.InsertFilter("/article/:id:int/edit", beego.BeforeRouter, controllers.AuthRequest)
+	beego.InsertFilter("/article/:id:int/delete", beego.BeforeRouter, controllers.AuthRequest)
 	beego.InsertFilter("/article/:id:int/comment", beego.BeforeRouter, controllers.AuthRequest)
 	beego.InsertFilter("/ajax/image/:id:int", beego.BeforeRouter, controllers.AuthRequest)
 	beego.InsertFilter("/*", beego.BeforeExec, controllers.DetectUserAgent)

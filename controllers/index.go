@@ -37,7 +37,6 @@ func (CTRL *IndexController) Get() {
 		offset := (page - 1) * pageSize
 		query.OrderBy("-orderid", "-id").Limit(pageSize, offset).All(&list)
 	*/
-	println("paginator.Offset() 1", paginator.Offset())
 	CTRL.Data["paginator"] = paginator
 	CTRL.Data["Articles"] = articles
 	//CTRL.Data["Total"] = math.Round(float64(total / pageSize))

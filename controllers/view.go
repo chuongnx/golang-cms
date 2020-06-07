@@ -45,7 +45,6 @@ func (CTRL *ViewController) Video() {
 	const BUFSIZE = 1024 * 8
 	videoid := CTRL.Ctx.Input.Param(":videoid")
 	arrvideoid := strings.Split(videoid, ".")
-	println("CTRL.Ctx.Input.Param", arrvideoid[0])
 	filename, err := utils.Decrypt(arrvideoid[0], []byte("testtesttesttesttesttest"))
 	if err != nil {
 		CTRL.Abort("403")
@@ -54,7 +53,7 @@ func (CTRL *ViewController) Video() {
 	//path := "E:/Movies/IndependenceDayResurgence2016720pHDRip.mp4"
 	println("path", fullPath)
 	file, err := os.Open(fullPath)
-	println("err", err)
+	//println("err", err)
 	if err != nil {
 		CTRL.Abort("403")
 		return

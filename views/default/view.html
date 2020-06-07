@@ -1,28 +1,29 @@
-
 <div class="row">
-	<div class="col-md-12">
-		{{.Article.Title}}
-	</div>
-	<div class="col-md-12">
 
-		<div class="col-md-12 ">
-			<div class="thumbnail">
-				<div id="player">http://content.jwplatform.com/manifests/vM7nH0Kl.m3u8</div>
-				<script type="text/javascript">
-					/** Setup JW Player. **/
-					jwplayer("player").setup({
-						file: 'http://localhost:8080/video/{{.FileName}}',
-						tracks: [{
-							kind: "thumbnails", file: '//content.jwplatform.com/strips/vM7nH0Kl-120.vtt'
-						}],
-						autostart: false,
-						width: "100%"
-					});
-				</script>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-12">
-		{{str2html .Article.Content}}
-	</div>
+    <div class="col-md-12">
+
+        <div class="col-md-12 ">
+            <div class="thumbnail">
+                <div id="player">http://content.jwplatform.com/manifests/vM7nH0Kl.m3u8</div>
+                <script type="text/javascript">
+                    /** Setup JW Player. **/
+                    jwplayer("player").setup({
+                        file: 'http://localhost:8080/video/{{.FileName}}',
+                        tracks: [{
+                            kind: "thumbnails",
+                            file: '//content.jwplatform.com/strips/vM7nH0Kl-120.vtt'
+                        }],
+                        autostart: false,
+                        width: "100%"
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <h4>{{.Article.Title}}</h4>
+    </div>
+    <div class="col-md-12">
+        {{str2html .Article.Content}}
+    </div>
 </div>

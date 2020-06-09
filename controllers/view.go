@@ -51,7 +51,7 @@ func (CTRL *ViewController) Video() {
 		CTRL.Abort("403")
 	}
 	videodir := beego.AppConfig.String("VideoDir")
-	fullPath := videodir + `\` + filename
+	fullPath := videodir + filename
 	//path := "E:/Movies/IndependenceDayResurgence2016720pHDRip.mp4"
 	println("path", fullPath)
 	file, err := os.Open(fullPath)

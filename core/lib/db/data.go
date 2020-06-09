@@ -6,6 +6,7 @@ import (
 	"log"
 	"strings"
 
+	"github.com/chuongnx/beego"
 	"github.com/chuongnx/golang-cms/models"
 	"github.com/chuongnx/golang-cms/utils"
 )
@@ -42,8 +43,10 @@ func InsertDemoData() bool {
 	htmlblock = models.Block{Name: "Default html block2", Type: "html", IsActive: true, Position: 2, Content: "{\"body\": \"this is a test for default blocks position 2 !\"}"}
 	db.Insert(&htmlblock)
 
-	fmt.Println("\nDoc thu muc\n")
-	files, err := ioutil.ReadDir("/movies/ipad")
+	fmt.Println("\nDoc thu muc video\n")
+	videodir := beego.AppConfig.String("VideoDir")
+	files, err := ioutil.ReadDir(videodir)
+	//files, err := ioutil.ReadDir("/movies/ipad")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -52,9 +55,9 @@ func InsertDemoData() bool {
 		article := models.Article{
 			Key:          strings.Split(f.Name(), ".")[0],
 			FileName:     f.Name(),
-			Title:        strings.Split(f.Name(), ".")[0],
-			ShortContent: strings.Split(f.Name(), ".")[0],
-			Content:      strings.Split(f.Name(), ".")[0],
+			Title:        f.Name(),
+			ShortContent: f.Name(),
+			Content:      f.Name(),
 			Category:     &category,
 			User:         &user,
 			Status:       "CHUA_DUYET",

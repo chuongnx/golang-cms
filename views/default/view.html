@@ -4,19 +4,11 @@
 
         <div class="col-md-12 ">
             <div class="thumbnail">
-                <div id="player">http://content.jwplatform.com/manifests/vM7nH0Kl.m3u8</div>
-                <script type="text/javascript">
-                    /** Setup JW Player. **/
-                    jwplayer("player").setup({
-                        file: 'http://phim247.me/video/{{.FileName}}',
-                        tracks: [{
-                            kind: "thumbnails",
-                            file: '//content.jwplatform.com/strips/vM7nH0Kl-120.vtt'
-                        }],
-                        autostart: false,
-                        width: "100%"
-                    });
-                </script>
+                <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+				<source src="/video/{{.FileName}}" type="video/mp4" />
+				<!-- Captions are optional -->
+				<track kind="captions" label="English captions" src="/path/to/captions.vtt" srclang="en" default />
+				</video>
             </div>
         </div>
     </div>

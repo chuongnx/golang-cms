@@ -20,7 +20,7 @@ func init() {
 	beego.Router("/logout", &controllers.LoginController{}, "get:Logout")
 	beego.Router("/register", &controllers.LoginController{}, "get:RegisterView;post:Register")
 	beego.Router("/article", &controllers.ArticleController{}, "get:GetAll")
-	beego.Router("/article/:id:int/:action:string", &controllers.ArticleController{})
+	beego.Router("/article/:id:int/:action:string", &controllers.ArticleController{}, "get:Get;post:Post;delete:Delete")
 	beego.Router("/view/:id:int", &controllers.ViewController{})
 	beego.Router("/channel/:page:int", &controllers.IndexController{}, "get:GetPage")
 	beego.Router("/video/:videoid", &controllers.ViewController{}, "get:Video")

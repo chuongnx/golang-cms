@@ -95,6 +95,7 @@ func (CTRL *ViewController) Video() {
 
 	} else {
 		rangeParam := strings.Split(CTRL.Ctx.ResponseWriter.Header().Get("Range"), "=")[1]
+		println("rangeParam", rangeParam)
 		splitParams := strings.Split(rangeParam, "-")
 		// response values
 		contentStartValue := 0

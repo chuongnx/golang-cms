@@ -30,7 +30,7 @@ func (CTRL *ViewController) Get() {
 		db.Read(Art, "Id")
 		CTRL.Data["Article"] = Art
 		//todo
-		Art.FileName = "IndependenceDayResurgence2016720pHDRip.mp4"
+		//Art.FileName = "IndependenceDayResurgence2016720pHDRip.mp4"
 		filename, err := utils.Encrypt(Art.FileName, []byte("testtesttesttesttesttest"))
 		if err != nil {
 			// TODO: Properly handle error

@@ -43,7 +43,7 @@ func (CTRL *ViewController) Get() {
 }
 
 func (CTRL *ViewController) Video() {
-	const BUFSIZE = 1024 * 64
+	const BUFSIZE = 1024 * 4
 	videoid := CTRL.Ctx.Input.Param(":videoid")
 	arrvideoid := strings.Split(videoid, ".")
 	filename, err := utils.Decrypt(arrvideoid[0], []byte("testtesttesttesttesttest"))
@@ -68,6 +68,7 @@ func (CTRL *ViewController) Video() {
 	fileSize := int(fi.Size())
 
 	if len(CTRL.Ctx.ResponseWriter.Header().Get("Range")) == 0 {
+		println("rangeParam", fileSize)
 		contentLength := strconv.Itoa(fileSize)
 		contentEnd := strconv.Itoa(fileSize - 1)
 		CTRL.Ctx.ResponseWriter.Header().Set("Content-Type", "video/mp4")

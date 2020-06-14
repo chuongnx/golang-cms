@@ -30,8 +30,8 @@ func (CTRL *ViewController) Get() {
 		db.Read(Art, "Id")
 		CTRL.Data["Article"] = Art
 		//todo
-		Art.FileName = "IndependenceDayResurgence2016720pHDRip.mp4"
-		filename, err := utils.Encrypt(Art.FileName, []byte("testtesttesttesttesttest"))
+		//Art.FileName = "IndependenceDayResurgence2016720pHDRip.mp4"
+		filename, err := utils.Encrypt(Art.FileName, []byte("phimphimphimphimphimphimphimphim"))
 		if err != nil {
 			// TODO: Properly handle error
 			log.Fatal(err)
@@ -46,7 +46,7 @@ func (CTRL *ViewController) Video() {
 	const BUFSIZE = 1024 * 100
 	videoid := CTRL.Ctx.Input.Param(":videoid")
 	arrvideoid := strings.Split(videoid, ".")
-	filename, err := utils.Decrypt(arrvideoid[0], []byte("testtesttesttesttesttest"))
+	filename, err := utils.Decrypt(arrvideoid[0], []byte("phimphimphimphimphimphimphimphim"))
 	if err != nil {
 		CTRL.Abort("403")
 	}

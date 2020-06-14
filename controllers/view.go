@@ -30,7 +30,7 @@ func (CTRL *ViewController) Get() {
 		db.Read(Art, "Id")
 		CTRL.Data["Article"] = Art
 		//todo
-		//Art.FileName = "IndependenceDayResurgence2016720pHDRip.mp4"
+		Art.FileName = "IndependenceDayResurgence2016720pHDRip.mp4"
 		filename, err := utils.Encrypt(Art.FileName, []byte("testtesttesttesttesttest"))
 		if err != nil {
 			// TODO: Properly handle error
@@ -43,7 +43,7 @@ func (CTRL *ViewController) Get() {
 }
 
 func (CTRL *ViewController) Video() {
-	const BUFSIZE = 1024 * 4
+	const BUFSIZE = 1024 * 100
 	videoid := CTRL.Ctx.Input.Param(":videoid")
 	arrvideoid := strings.Split(videoid, ".")
 	filename, err := utils.Decrypt(arrvideoid[0], []byte("testtesttesttesttesttest"))
@@ -66,8 +66,8 @@ func (CTRL *ViewController) Video() {
 		return
 	}
 	fileSize := int(fi.Size())
-
-	if len(CTRL.Ctx.ResponseWriter.Header().Get("Range")) == 0 {
+	println("HTTP_RANGE", CTRL.Ctx.Input.Header("Range"))
+	if len(CTRL.Ctx.Input.Header("Range")) == 0 {
 		println("rangeParam", fileSize)
 		contentLength := strconv.Itoa(fileSize)
 		contentEnd := strconv.Itoa(fileSize - 1)
@@ -95,8 +95,8 @@ func (CTRL *ViewController) Video() {
 		}
 
 	} else {
-		rangeParam := strings.Split(CTRL.Ctx.ResponseWriter.Header().Get("Range"), "=")[1]
-		println("rangeParam", rangeParam)
+		rangeParam := strings.Split(CTRL.Ctx.Input.Header("Range"), "=")[1]
+
 		splitParams := strings.Split(rangeParam, "-")
 		// response values
 		contentStartValue := 0

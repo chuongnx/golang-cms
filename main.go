@@ -1,6 +1,8 @@
 package main
 
 import (
+	"strings"
+
 	"github.com/chuongnx/beego"
 	_ "github.com/chuongnx/beego/session/redis"
 	_ "github.com/chuongnx/golang-cms/core/template"
@@ -16,6 +18,17 @@ func init() {
 	utils.SessionInit(currentEnvironment)
 }
 
+func contain(source string, value string) (ret bool) {
+	if strings.Contains(source, value) {
+		return true
+	} else {
+		return false
+	}
+
+}
+
 func main() {
+
+	beego.AddFuncMap("Contains", contain)
 	beego.Run()
 }

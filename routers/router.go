@@ -13,17 +13,19 @@ func init() {
 			beego.SetStaticPath("/static/"+template+"/"+style, "views/"+template+"/styles/"+style)
 		}
 	}
-
+	beego.SetStaticPath("/static", "static")
 	// guests request
 	beego.Router("/", &controllers.IndexController{})
 	beego.Router("/login", &controllers.LoginController{}, "get:LoginView;post:Login")
 	beego.Router("/logout", &controllers.LoginController{}, "get:Logout")
 	beego.Router("/register", &controllers.LoginController{}, "get:RegisterView;post:Register")
 	beego.Router("/article", &controllers.ArticleController{}, "get:GetAll")
-	beego.Router("/article/:id:int/:action:string", &controllers.ArticleController{}, "get:Get;post:Post;delete:Delete")
-	beego.Router("/view/:id:int", &controllers.ViewController{})
+	beego.Router("/article/:id:int/delete", &controllers.ArticleController{}, "get:Delete")
+	beego.Router("/article/:id:int/:action:string", &controllers.ArticleController{}, "get:Get;post:Post")
+	beego.Router("/xem-phim/:name-:id:int.html", &controllers.ViewController{})
 	beego.Router("/channel/:page:int", &controllers.IndexController{}, "get:GetPage")
 	beego.Router("/video/:videoid", &controllers.ViewController{}, "get:Video")
+	beego.Router("/phim/:category.html", &controllers.IndexController{}, "get:Category")
 	// User requests
 	beego.Router("/ajax/image/:id:int", &controllers.AjaxController{}, "get:GetImageUploadStatus;post:PostImage")
 	beego.Router("/profile/:id:int/:action:string", &controllers.ProfileController{}, "get:UserPanelView")

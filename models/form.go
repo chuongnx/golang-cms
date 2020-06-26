@@ -13,15 +13,30 @@ type RegisterForm struct {
 
 // ArticleForm ...
 type ArticleForm struct {
-	Id            int               `form:"-"`
-	Title         string            `form:"title" valid:"Required;MinSize(4);MaxSize(300)"`
-	Category      int               `form:"category"`
-	Content       string            `form:"content" valid:"Required;MinSize(50);MaxSize(2000)"`
-	TopicTags     string            `form:"topic-tags" valid:"MinSize(4);MaxSize(300)"`
-	TaggedUsers   string            `form:"tagged-users" valid:"MinSize(4);MaxSize(300)"`
-	AllowReviews  bool              `form:"allow-reviews" valid:"Required"`
-	AllowComments bool              `form:"allow-comments" valid:"Required"`
+	Id            int               `form:"id"`
+	Key           string            `form:"key" valid:"Required;MinSize(1);MaxSize(300)"`
+	User          *User             `form:"user" valid:"Required;"`
+	FileName      string            `form:"file_name" valid:"Required;MinSize(1);MaxSize(300)"`
+	ShortContent  string            `form:"short_content"`
+	Score         int               `form:"score" `
+	PublishDate   string            `form:"publish_date" `
+	Director      string            `form:"director" `
+	Actor         string            `form:"actor" `
+	Time          string            `form:"time" `
+	PublishYear   string            `form:"publish_year" `
+	Language      string            `form:"language" `
+	Duration      string            `form:"duration" `
+	National      string            `form:"national"`
+	Title         string            `form:"title" valid:"Required;MinSize(1);MaxSize(300)"`
+	Category      string            `form:"category"`
+	Content       string            `form:"content" valid:"Required;MinSize(1);MaxSize(2000)"`
+	TopicTags     string            `form:"topic_tags" valid:"MinSize(0);MaxSize(300)"`
+	TaggedUsers   string            `form:"tagged_users" valid:"MinSize(0);MaxSize(300)"`
+	AllowReviews  bool              `form:"allow_reviews" valid:"Required"`
+	AllowComments bool              `form:"allow_comments" valid:"Required"`
 	InvalidFields map[string]string `form:"-"`
+	Status        string            `form:"status"`
+	Hightlight    string            `form:"hightlight"`
 }
 
 // ImageForm ...

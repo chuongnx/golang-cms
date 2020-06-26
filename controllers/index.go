@@ -23,22 +23,14 @@ func (CTRL *IndexController) Get() {
 
 	//offset := (page - 1) * pageSize
 	articles := new([]*models.Article)
+	articlesHightlight := new([]*models.Article)
 	total, _ := db.QueryTable("article").Count()
 	paginator := pagination.SetPaginator(CTRL.Ctx, pageSize, total)
 	db.QueryTable("article").OrderBy("-title").Limit(pageSize, paginator.Offset()).All(articles)
-	/*
-		filters := make([]interface{}, 0)
-		//filters = append(filters, "status", 1)
-		//filters = append(filters, "class_id", 5)
-		result, _ := models.GetListArticle(1, 6, filters...)
-		query := orm.NewOrm().QueryTable("Article")
-		page = 1
-		pageSize = 10
-		offset := (page - 1) * pageSize
-		query.OrderBy("-orderid", "-id").Limit(pageSize, offset).All(&list)
-	*/
+	db.QueryTable("article").Filter("status__contains", "TRANG_CHU").OrderBy("-title").All(articlesHightlight)
 	CTRL.Data["paginator"] = paginator
 	CTRL.Data["Articles"] = articles
+	CTRL.Data["ArticleHightlights"] = articlesHightlight
 	//CTRL.Data["Total"] = math.Round(float64(total / pageSize))
 	CTRL.Data["Website"] = "127.0.0.1:8080"
 	CTRL.Data["description"] = "Fast and stable CMS"
@@ -80,4 +72,28 @@ func (CTRL *IndexController) GetPage() {
 	CTRL.Data["description"] = "Fast and stable CMS"
 	CTRL.Data["Email"] = "chuongnx@gmail.com"
 	CTRL.Data["phim"] = "phim hanh dong"
+}
+
+// Get main page
+func (CTRL *IndexController) Category() {
+	category := CTRL.Ctx.Input.Param(":category")
+
+	pageSize := int(12)
+	//page := int64(1)
+	db := CTRL.GetDB("default")
+	CTRL.ConfigPage("category.html")
+	cats := new([]*models.Category)
+	db.QueryTable("category").All(cats)
+	CTRL.Data["Categories"] = *cats
+
+	articles := new([]*models.Article)
+	articlesHightlight := new([]*models.Article)
+	total, _ := db.QueryTable("article").Count()
+	paginator := pagination.SetPaginator(CTRL.Ctx, pageSize, total)
+	db.QueryTable("article").Filter("category__contains", category).OrderBy("-title").Limit(pageSize, paginator.Offset()).All(articles)
+	db.QueryTable("article").Filter("status__contains", "TRANG_CHU").OrderBy("-title").All(articlesHightlight)
+	CTRL.Data["paginator"] = paginator
+	CTRL.Data["Articles"] = articles
+	CTRL.Data["ArticleHightlights"] = articlesHightlight
+
 }

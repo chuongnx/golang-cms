@@ -39,12 +39,14 @@ func (form *ArticleForm) Validate() bool {
 	if isValid, err = validator.Valid(form); err != nil {
 		beego.Error(err)
 	} else {
-		if isValid {
-			if form.Category < 0 {
-				validator.SetError("Category", "Invalid category")
-				isValid = false
+		/*
+			if isValid {
+				if form.Category != "" {
+					validator.SetError("Category", "Invalid category")
+					isValid = false
+				}
 			}
-		}
+		*/
 		if !isValid {
 			form.InvalidFields = make(map[string]string, len(validator.Errors))
 			for _, err := range validator.Errors {

@@ -8,15 +8,15 @@ import (
 
 // User model
 type User struct {
-	Id          int        `orm:"column(id);auto"`
-	Username    string     `orm:"column(username);size(50);unique"`
-	Email       string     `orm:"column(email);size(255);"`
-	Password    string     `orm:"column(password);size(128)"`
-	CreateTime  time.Time  `orm:"column(create_time);type(timestamp);auto_now_add"`
-	Admin       bool       `orm:"column(admin)"`
-	Rands       string     `orm:"size(10)"`
-	Profile     *Profile   `orm:"rel(one)"`
-	Article     []*Article `orm:"reverse(many)"`
+	Id         int       `orm:"column(id);auto"`
+	Username   string    `orm:"column(username);size(50);unique"`
+	Email      string    `orm:"column(email);size(255);"`
+	Password   string    `orm:"column(password);size(128)"`
+	CreateTime time.Time `orm:"column(create_time);type(timestamp);auto_now_add"`
+	Admin      bool      `orm:"column(admin)"`
+	Rands      string    `orm:"size(10)"`
+	Profile    *Profile  `orm:"rel(one)"`
+	//Article     []*Article `orm:"reverse(many)"`
 	Permissions string
 }
 

@@ -1,0 +1,102 @@
+<div class="row">
+    <div class="col-md-12">
+        <div id="carousel-example-generic" class="col-md-12 carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+            <!-- Wrapper for slides -->
+            {{ range .ArticleHightlights }}
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjE1MCIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE5cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MzAweDIwMDwvdGV4dD48L3N2Zz4="
+                        alt="...">
+                    <div class="carousel-caption">
+
+                        <h3>{{.Title}}</h3>
+
+                        <p>{{.Title}}</p>
+
+                    </div>
+                </div>
+            </div>
+            {{end}}
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabs">
+            <a role="button" href="/">Tất cả</a> {{ range .Categories }}
+            <a role="button" href="/phim/{{.Key}}.html">{{.Name}}</a> {{ end }}
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        {{ range .Articles }}
+        <div class="col-md-3">
+            <div class="thumbnail">
+
+                <img src="/static/uploads/season-se956-portrait.jpg" data-src="holder.js/300x200" alt="...">
+
+                <div class="caption">
+
+                    <h5>{{.Title}}</h5>
+
+                </div>
+
+            </div>
+        </div>
+        {{ end }}
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        {{if gt .paginator.PageNums 1}}
+        <ul class="pagination">
+            {{if .paginator.HasPrev}}
+            <li><a href="{{.paginator.PageLinkFirst}}">{{ "Đầu"}}</a></li>
+            <li><a href="{{.paginator.PageLinkPrev}}">&lt;</a></li>
+            {{else}}
+            <li class="disabled"><a>{{ "Đầu"}}</a></li>
+            <li class="disabled"><a>&lt;</a></li>
+            {{end}} {{range $index, $page := .paginator.Pages}}
+            <li{{if $.paginator.IsActive .}} class="active" {{end}}>
+                <a href="{{$.paginator.PageLink $page}}">{{$page}}</a>
+                </li>
+                {{end}} {{if .paginator.HasNext}}
+                <li><a href="{{.paginator.PageLinkNext}}">&gt;</a></li>
+                <li><a href="{{.paginator.PageLinkLast}}">{{  "Cuối"}}</a></li>
+                {{else}}
+                <li class="disabled"><a>&gt;</a></li>
+                <li class="disabled"><a>{{  "Cuối"}}</a></li>
+                {{end}}
+        </ul>
+        {{end}}
+    </div>
+</div>
+<div style="display:none;">
+    <div class="hero-text">
+        <h1>Welcome to phim247.me</h1>
+        <p class="description">
+            Golang-CMS is a full & powerful Go web content management system which is inspired by djando-cms.
+            <br /> Official website: <a href="http://{{.Website}}">{{.Website}}</a>
+            <br /> Contact me: {{.Email}}
+            <br /> 111{{ .ModuleMenu }}111 {{ range .Categories }} cat{{.Name}} {{ end }} {{.phim}}
+            <br> you are visiting the page from a {{.device_type}} device
+            <br> To get more info please: <a href="http://{{.Website}}/register">Register</a> OR <a href="http://{{.Website}}/login">login</a>
+        </p>
+    </div>
+</div>

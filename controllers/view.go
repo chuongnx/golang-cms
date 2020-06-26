@@ -30,7 +30,7 @@ func (CTRL *ViewController) Get() {
 		db.Read(Art, "Id")
 		CTRL.Data["Article"] = Art
 		//todo
-		//Art.FileName = "IndependenceDayResurgence2016720pHDRip.mp4"
+		Art.FileName = "IndependenceDayResurgence2016720pHDRip.mp4"
 		filename, err := utils.Encrypt(Art.FileName, []byte("phimphimphimphimphimphimphimphim"))
 		if err != nil {
 			// TODO: Properly handle error
@@ -43,7 +43,7 @@ func (CTRL *ViewController) Get() {
 }
 
 func (CTRL *ViewController) Video() {
-	const BUFSIZE = 1024 * 100
+	const bufferSize = 1024 * 100
 	videoid := CTRL.Ctx.Input.Param(":videoid")
 	arrvideoid := strings.Split(videoid, ".")
 	filename, err := utils.Decrypt(arrvideoid[0], []byte("phimphimphimphimphimphimphimphim"))
@@ -52,7 +52,6 @@ func (CTRL *ViewController) Video() {
 	}
 	videodir := beego.AppConfig.String("VideoDir")
 	fullPath := videodir + filename
-	//path := "E:/Movies/IndependenceDayResurgence2016720pHDRip.mp4"
 	println("path", fullPath)
 	file, err := os.Open(fullPath)
 	if err != nil {
@@ -66,9 +65,7 @@ func (CTRL *ViewController) Video() {
 		return
 	}
 	fileSize := int(fi.Size())
-	println("HTTP_RANGE", CTRL.Ctx.Input.Header("Range"))
 	if len(CTRL.Ctx.Input.Header("Range")) == 0 {
-		println("rangeParam", fileSize)
 		contentLength := strconv.Itoa(fileSize)
 		contentEnd := strconv.Itoa(fileSize - 1)
 		CTRL.Ctx.ResponseWriter.Header().Set("Content-Type", "video/mp4")
@@ -76,7 +73,7 @@ func (CTRL *ViewController) Video() {
 		CTRL.Ctx.ResponseWriter.Header().Set("Content-Length", contentLength)
 		CTRL.Ctx.ResponseWriter.Header().Set("Content-Range", "bytes 0-"+contentEnd+"/"+contentLength)
 		CTRL.Ctx.ResponseWriter.WriteHeader(200)
-		buffer := make([]byte, BUFSIZE)
+		buffer := make([]byte, bufferSize)
 
 		for {
 			n, err := file.Read(buffer)
@@ -126,7 +123,7 @@ func (CTRL *ViewController) Video() {
 		CTRL.Ctx.ResponseWriter.Header().Set("Content-Range", "bytes "+contentStart+"-"+contentEnd+"/"+contentSize)
 		CTRL.Ctx.ResponseWriter.WriteHeader(206)
 
-		buffer := make([]byte, BUFSIZE)
+		buffer := make([]byte, bufferSize)
 		file.Seek(int64(contentStartValue), 0)
 		writeBytes := 0
 		for {
@@ -139,7 +136,7 @@ func (CTRL *ViewController) Video() {
 				break
 			}
 			if writeBytes >= contentEndValue {
-				data := buffer[:BUFSIZE-writeBytes+contentEndValue+1]
+				data := buffer[:bufferSize-writeBytes+contentEndValue+1]
 				CTRL.Ctx.ResponseWriter.Write(data)
 				CTRL.Ctx.ResponseWriter.Flush()
 				break
@@ -149,51 +146,5 @@ func (CTRL *ViewController) Video() {
 			CTRL.Ctx.ResponseWriter.Flush()
 		}
 	}
-	/*
-		file, err := os.Open(fullPath)
-		//println("err", err)
-		if err != nil {
-			CTRL.Abort("403")
-			return
-		}
-
-		defer file.Close()
-
-		fi, err := file.Stat()
-
-		if err != nil {
-			CTRL.Abort("500")
-			return
-		}
-
-		fileSize := int(fi.Size())
-
-		contentLength := strconv.Itoa(fileSize)
-		contentEnd := strconv.Itoa(fileSize - 1)
-
-		CTRL.Ctx.ResponseWriter.Header().Set("Content-Type", "video/mp4")
-		CTRL.Ctx.ResponseWriter.Header().Set("Accept-Ranges", "bytes")
-		CTRL.Ctx.ResponseWriter.Header().Set("Content-Length", contentLength)
-		CTRL.Ctx.ResponseWriter.Header().Set("Content-Range", "bytes 0-"+contentEnd+"/"+contentLength)
-		CTRL.Ctx.ResponseWriter.WriteHeader(200)
-
-		buffer := make([]byte, BUFSIZE)
-
-		for {
-			n, err := file.Read(buffer)
-
-			if n == 0 {
-				break
-			}
-
-			if err != nil {
-				break
-			}
-
-			data := buffer[:n]
-			CTRL.Ctx.ResponseWriter.Write(data)
-			//CTRL.Ctx.(http.Flusher).Flush()
-		}
-	*/
 
 }

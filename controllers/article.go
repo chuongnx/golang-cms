@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 	"strconv"
+	"time"
 
 	"github.com/chuongnx/beego/utils/pagination"
 	"github.com/chuongnx/golang-cms/models"
@@ -38,7 +39,6 @@ func (CTRL *ArticleController) GetAll() {
 		offset := (page - 1) * pageSize
 		query.OrderBy("-orderid", "-id").Limit(pageSize, offset).All(&list)
 	*/
-	println("paginator.Offset() 1", paginator.Offset())
 	CTRL.Data["paginator"] = paginator
 	CTRL.Data["Articles"] = articles
 
@@ -52,16 +52,32 @@ func (CTRL *ArticleController) Get() {
 	}
 	db := CTRL.GetDB("default")
 	if ArtID == 0 {
-		CTRL.Data["form"] = models.ArticleForm{}
-		cats := new([]*models.Category)
+		//cat := new(models.Category)
+		//cat.Id = 0
+		//db.Read(cat, "Id")
+		Art := new(models.Article)
+		//Art.Category = cat
+		CTRL.Data["form"] = Art
+		cats := new([]models.Category)
 		db.QueryTable("category").All(cats)
-		CTRL.Data["Categories"] = *cats
+
+		CTRL.Data["Categories"] = &cats
 		CTRL.ConfigPage("article-editor.html")
 	} else {
+
+		//cat := new(models.Category)
+		//cat.Id = 0
+		//db.Read(cat, "Id")
+
 		Art := new(models.Article)
+		//Art.Category = cat
 		Art.Id = ArtID
 		db.Read(Art, "Id")
-		CTRL.Data["Article"] = Art
+
+		CTRL.Data["form"] = &Art
+		cats := new([]models.Category)
+		db.QueryTable("category").All(cats)
+		CTRL.Data["Categories"] = &cats
 		CTRL.ConfigPage("article-editor.html")
 	}
 }
@@ -84,19 +100,72 @@ func (CTRL *ArticleController) Post() {
 				fmt.Println(key, msg)
 			}
 		} else {
-			cat := new(models.Category)
-			cat.Id = form.Category
-			db.Read(cat, "Id")
-			Art.Category = cat
-			user := CTRL.Data["user"].(models.User)
-			Art.User = &user
-			Art.Title = form.Title
-			Art.Content = form.Content
-			Art.AllowComments = form.AllowComments
-			db.Insert(Art)
-			CTRL.Data["Article"] = Art
-			//CTRL.ConfigPage("article.html")
-			CTRL.Redirect("/article", 302)
+			//cat := new(models.Category)
+			//cat.Id = form.Category
+			//db.Read(cat, "Id")
+
+			if form.Id > 0 {
+
+				user := CTRL.Data["user"].(models.User)
+				fmt.Println("user", user)
+				Art.Id = form.Id
+				Art.Category = form.Category
+				Art.User = &user
+				Art.Key = form.Key
+				Art.Title = form.Title
+				Art.FileName = form.FileName
+				Art.Score = form.Score
+				Art.PublishDate = form.PublishDate
+				Art.Director = form.Director
+				Art.Actor = form.Actor
+				Art.PublishYear = form.PublishYear
+				Art.National = form.National
+				Art.Language = form.Language
+				Art.Duration = form.Duration
+				Art.ShortContent = form.ShortContent
+				Art.Content = form.Content
+				Art.AllowComments = form.AllowComments
+				Art.AllowReviews = form.AllowReviews
+				Art.TaggedUsers = form.TaggedUsers
+				Art.TopicTags = form.TopicTags
+				Art.CreateTime = time.Now()
+				Art.Status = form.Status
+				fmt.Println("Art", Art)
+				db.Update(Art)
+				CTRL.Data["form"] = Art
+				//CTRL.ConfigPage("article.html")
+				CTRL.Redirect("/article", 302)
+			} else {
+
+				user := CTRL.Data["user"].(models.User)
+				fmt.Println("user", user)
+				Art.Id = form.Id
+				Art.Category = form.Category
+				Art.User = &user
+				Art.Key = form.Key
+				Art.Title = form.Title
+				Art.FileName = form.FileName
+				Art.Score = form.Score
+				Art.PublishDate = form.PublishDate
+				Art.Director = form.Director
+				Art.Actor = form.Actor
+				Art.PublishYear = form.PublishYear
+				Art.National = form.National
+				Art.Language = form.Language
+				Art.Duration = form.Duration
+				Art.ShortContent = form.ShortContent
+				Art.Content = form.Content
+				Art.AllowComments = form.AllowComments
+				Art.AllowReviews = form.AllowReviews
+				Art.TaggedUsers = form.TaggedUsers
+				Art.TopicTags = form.TopicTags
+				Art.CreateTime = time.Now()
+				Art.Status = form.Status
+				db.Insert(Art)
+				CTRL.Data["form"] = Art
+				//CTRL.ConfigPage("article.html")
+				CTRL.Redirect("/article", 302)
+			}
 		}
 	}
 }
@@ -104,6 +173,7 @@ func (CTRL *ArticleController) Post() {
 // Post create/update article
 func (CTRL *ArticleController) Delete() {
 	ArtID, err := strconv.Atoi(CTRL.Ctx.Input.Param(":id"))
+	println("ArtID", ArtID)
 	if err != nil {
 		CTRL.Abort("403")
 	}
@@ -112,7 +182,6 @@ func (CTRL *ArticleController) Delete() {
 		Art := new(models.Article)
 		Art.Id = ArtID
 		db.Delete(Art, "Id")
-		CTRL.Data["Article"] = Art
 		CTRL.Redirect("/article", 302)
 	}
 }

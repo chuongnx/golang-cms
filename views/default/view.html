@@ -2,9 +2,9 @@
 
     <div class="col-md-12">
 
-        <div class="col-md-12 ">
+        <div class="col-md-8 ">
             <div class="thumbnail">
-                <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+                <video id="player" controls crossorigin playsinline data-poster="/path/to/poster.jpg">
 				<source src="/video/{{.FileName}}" type="video/mp4" />
 				<!-- Captions are optional -->
 				<track kind="captions" label="English captions" src="/path/to/captions.vtt" srclang="en" default />
@@ -16,11 +16,25 @@
                 </script>
             </div>
         </div>
+        <div class="col-md-4">
+            <p>Điểm: {{.Article.Score}}</p>
+            <p>Đạo diễn: {{.Article.Director}}</p>
+            <p>Quốc gia: {{.Article.National}}</p>
+            <p>Năm: {{.Article.PublishYear}}</p>
+            <p>Thời lượng: {{.Article.Duration}}</p>
+            <p>Ngôn ngữ: {{.Article.Language}}</p>
+
+        </div>
     </div>
     <div class="col-md-12">
-        <h4>{{.Article.Title}}</h4>
+        <div>
+            <h4>{{.Article.Title}}</h4>
+        </div>
     </div>
     <div class="col-md-12">
-        {{str2html .Article.Content}}
+        <div>
+            <p>{{str2html .Article.Content}}</p>
+        </div>
+
     </div>
 </div>

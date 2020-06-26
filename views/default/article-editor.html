@@ -1,39 +1,90 @@
-{{.form.InvalidFields}}
+{{.InvalidFields}}
 <form method="post" role="form">
-    <div class="form-group">
+    <input type="hidden" id="id" name="id" value="{{.form.Id}}">
+    <input type="hidden" id="key" name="key" value="{{.form.Key}}">
+    <input type="hidden" id="user" name="user" value="{{.form.User}}">
+    <div class="col-md-12 form-group">
         <label for="title">Tiêu đề</label>
-        <input type="text" class="form-control" id="title" placeholder="Nhập tiêu đề" value="{{.Article.Title}}">
+        <input type="text" class="form-control" id="title" name="title" placeholder="Nhập tiêu đề" value="{{.form.Title}}">
     </div>
-    <div class="form-group">
+    <div class="col-md-12 form-group">
         <label for="title">Tên file</label>
-        <input type="text" class="form-control" id="title" placeholder="Nhập tên file" value="{{.Article.FileName}}">
+        <input type="text" class="form-control" id="file_name" name="file_name" placeholder="Nhập tên file" value="{{.form.FileName}}">
     </div>
-    <div class="form-group">
-        <label for="category">Chọn chuyên mục</label>
-        <select id="category" name="category" class="form-control">
-            {{ if not .Article.Category}}<option value="" disabled selected>Chọn chuyên mục</option>{{end}}
+    <div class=" col-md-12 form-group">
+
+        <div class="col-md-4">
+            <label for="title">Điểm đánh giá</label>
+            <input type="text" class="form-control" id="score" name="score" placeholder="Điểm đánh giá" value="{{.form.Score}}">
+        </div>
+        <div class="col-md-4">
+            <label for="title">Ngày phát hành</label>
+            <input type="text" class="form-control" id="publish_date" name="publish_date" placeholder="Ngày phát hành" value="{{.form.PublishDate}}">
+        </div>
+        <div class="col-md-4">
+            <label for="title">Đạo diễn</label>
+            <input type="text" class="form-control" id="director" name="director" placeholder="Đạo diễn" value="{{.form.Director}}">
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+        <div class="col-md-4">
+            <label for="title">Diễn viên</label>
+            <input type="text" class="form-control" id="actor" name="actor" placeholder="Diễn viên" value="{{.form.Actor}}">
+        </div>
+        <div class="col-md-4">
+            <label for="title">Năm sản xuất</label>
+            <input type="text" class="form-control" id="publish_year" name="publish_year" placeholder="Năm sản xuất" value="{{.form.PublishYear}}">
+        </div>
+        <div class="col-md-4">
+            <label for="title">Quốc gia</label>
+            <input type="text" class="form-control" id="national" name="national" placeholder="Quốc gia" value="{{.form.National}}">
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+
+        <div class="col-md-4">
+            <label for="title">Ngôn ngữ</label>
+            <input type="text" class="form-control" id="language" name="language" placeholder="Ngôn ngữ" value="{{.form.Language}}">
+        </div>
+        <div class="col-md-4">
+            <label for="title">Thời lượng</label>
+            <input type="text" class="form-control" id="duration" name="duration" placeholder="Thời lượng" value="{{.form.Duration}}">
+        </div>
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+    </div>
+    <div class="col-md-12 form-group">
+        <label for="category">
+            Chọn chuyên mục
+            <input type="hidden" id="category" name="category" value="{{.form.Category}}">
+        </label>
+        <div class="row">
+
             {{ range .Categories }}
-            <option value="{{.Id}}" {{if eq .Id $.form.Category}}selected{{end}}>{{.Name}}</option>
+            <div class="col-md-10">
+                <input type="checkbox" id="chkCategory{{.Id}}" name="chkCategory" {{if Contains $.form.Category .Key }}checked{{end}} value="{{.Key}}"> {{.Name}}
+            </div>
             {{ end }}
-        </select>
+        </div>
     </div>
-    <div class="form-group">
+    <div class="col-md-12 form-group">
         <i class="material-icons prefix">mode_edit</i>
-        <label for="shortcontent">Nội dung ngắn gọn</label>
-        <textarea name="shortcontent" id="shortcontent" rows="10" cols="80" form-control>
-          {{.Article.ShortContent}}
+        <label for="short_content">Nội dung ngắn gọn</label>
+        <textarea id="short_content" name="short_content" rows="10" cols="80" form-control>
+          {{.form.ShortContent}}
         </textarea>
         <script type="text/javascript">
             $(document).ready(function() {
-                CKEDITOR.replace("shortcontent");
+                CKEDITOR.replace("short_content");
             });
         </script>
     </div>
-    <div class="form-group">
+    <div class="col-md-12 form-group">
         <i class="material-icons prefix">mode_edit</i>
         <label for="content">Nội dung</label>
         <textarea name="content" id="content" rows="10" cols="80" form-control>
-              {{.Article.Content}}
+              {{.form.Content}}
         </textarea>
         <script type="text/javascript">
             $(document).ready(function() {
@@ -41,27 +92,47 @@
             });
         </script>
     </div>
-    <div class="form-group">
-        <label for="topic-tags">Thẻ chủ đề</label>
-        <input type="text" id="topic-tags" name="topic-tags" class="form-control" value="{{.form.TopicTags}}">
+    <div class="col-md-12 form-group">
+        <div class="col-md-6">
+            <label for="topic-tags">Thẻ chủ đề</label>
+            <input type="text" id="topic_tags" name="topic_tags" class="form-control" value="{{.form.TopicTags}}">
+        </div>
+        <div class="col-md-6">
+            <label for="tagged-users">Tag Friends</label>
+            <input type="text" id="tagged_users" name="tagged_users" class="form-control" value="{{.form.TaggedUsers}}">
+        </div>
     </div>
-    <div class="checkbox">
-        <label>
-        <input type="checkbox" name="allow-comments" {{if .form.AllowComments}}checked{{end}}> Comments
-      </label>
-    </div>
-    <div class="checkbox">
-        <label>
-          <input type="checkbox" name="allow-reviews" {{if .form.AllowReviews}}checked{{end}}> Reviews
-        </label>
-    </div>
-    <div class="form-group">
-        <label for="tagged-users">Tag Friends</label>
-        <input type="text" id="tagged-users" name="tagged-users" class="form-control" value="{{.form.TaggedUsers}}">
+    <div class="col-md-12">
+        <div class="col-md-4 checkbox">
+            <input type="checkbox" id="allow_comments" name="allow_comments" {{if .form.AllowComments}}checked{{end}}>
+            <label>
+                 Comments
+            </label>
+        </div>
+        <div class="col-md-4 checkbox">
+            <input type="checkbox" id="allow_reviews" name="allow_reviews" {{if .form.AllowReviews}}checked{{end}}>
+            <label>
+                Reviews
+            </label>
+        </div>
     </div>
 
+    <div class="col-md-12 form-group">
+        <label for="status">Trạng thái</label>
+        <select id="status" name="status" class="form-control">
+            <option value="CHUA_DUYET" {{if eq "CHUA_DUYET" $.form.Status }}selected{{end}}>Chưa duyệt</option>
+            <option value="DA_DUYET" {{if eq "DA_DUYET" $.form.Status }}selected{{end}}>Đã duyệt</option>
+            <option value="TRANG_CHU" {{if eq "TRANG_CHU" $.form.Status }}selected{{end}}>Trang chủ</option>
+        </select>
+    </div>
     <div class="col-md-12">
-        <button type="submit" class="btn btn-danger">Lưu lại</button>
+        <button type="button" class="btn btn-danger" onclick="btnSave();">Lưu lại</button>
         <button type="button" class="btn btn-success" onclick="javascript:window.location='/article'">Quay lại</button>
     </div>
 </form>
+<script type="text/javascript">
+    btnSave = function() {
+        $("#category").val(JGetAllCheckboxID("chkCategory"));
+        $("form").submit();
+    }
+</script>

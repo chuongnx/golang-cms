@@ -1,0 +1,72 @@
+@font-face {
+    font-family: 'SFProDisplay-Regular';
+    src: url(../font/FontsFree-Net-SFProDisplay-Regular.ttf);
+}
+
+body {
+    font-size: 14px;
+    font-family: 'SFProDisplay-Regular';
+    line-height: 1.35em;
+    background: #111;
+    color: #9b9b9b;
+    overflow: auto!important;
+}
+
+.menus {
+    padding: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background: none !important;
+}
+
+.menus ul li {
+    background: none !important;
+}
+
+.menus ul li a {
+    background: none !important;
+    color: #ffffff;
+}
+
+.menus a {
+    padding: 10px;
+    color: #9B9B9B;
+    text-decoration: none;
+    background: none !important;
+}
+
+.menus a:hover {
+    color: #1a93f6;
+}
+
+.dropdown-menu {
+    background: none !important;
+}
+
+.tabs {
+    padding: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.tabs a {
+    padding: 10px;
+    color: #9B9B9B;
+    text-decoration: none;
+}
+
+.tabs a:hover {
+    color: #1a93f6;
+}
+
+.thumbnail {
+    background: none !important;
+    padding: 0px;
+    border: 0px solid #ddd;
+    border-radius: 5px;
+}
+
+.thumbnail .caption {
+    font-size: 16px;
+    color: #fff;
+}

@@ -70,3 +70,17 @@ body {
     font-size: 16px;
     color: #fff;
 }
+
+.btn-normal {
+    background: #ff6500;
+    color: #ffffff;
+    border-radius: 5px;
+    border: 0px solid #ddd;
+    padding: 6px 12px 6px 12px;
+}
+
+.text-search {
+    background: #111;
+    color: #fff;
+    border: 0px solid #ddd;
+}

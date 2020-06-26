@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <button type="button" class="btn btn-success" onclick="javascript:window.location='/article/0/edit'">Thêm mới</button>
+        <button type="button" class="btn btn-success" onclick="javascript:window.location='/admin/article/0/edit'">Thêm mới</button>
     </div>
 </div>
 <div class="row">
@@ -24,8 +24,8 @@
                         <td>{{.Title}}</td>
                         <td class="text-center">{{.CreateTime}}</td>
                         <td class="text-center">{{.Status}}</td>
-                        <td class="text-center"><a href="/article/{{.Id}}/edit">Sửa</a></td>
-                        <td class="text-center"><a href="/article/{{.Id}}/delete">Xóa</a></td>
+                        <td class="text-center"><a href="/admin/article/{{.Id}}/edit">Sửa</a></td>
+                        <td class="text-center"><a href="/admin/article/{{.Id}}/delete">Xóa</a></td>
                     </tr>
                     {{ end }}
                 </tbody>

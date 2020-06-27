@@ -32,6 +32,8 @@ type ArticleForm struct {
 	Content       string            `form:"content" valid:"Required;MinSize(1);MaxSize(2000)"`
 	TopicTags     string            `form:"topic_tags" valid:"MinSize(0);MaxSize(300)"`
 	TaggedUsers   string            `form:"tagged_users" valid:"MinSize(0);MaxSize(300)"`
+	FilmImage     string            `form:"filmImage" valid:"MinSize(0);MaxSize(300)"`
+	PosterImage   string            `form:"posterImage" valid:"MinSize(0);MaxSize(300)"`
 	AllowReviews  bool              `form:"allow_reviews" valid:"Required"`
 	AllowComments bool              `form:"allow_comments" valid:"Required"`
 	InvalidFields map[string]string `form:"-"`

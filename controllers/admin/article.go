@@ -128,6 +128,8 @@ func (CTRL *ArticleController) Post() {
 				Art.AllowReviews = form.AllowReviews
 				Art.TaggedUsers = form.TaggedUsers
 				Art.TopicTags = form.TopicTags
+				Art.FilmImage = form.FilmImage
+				Art.PosterImage = form.PosterImage
 				Art.CreateTime = time.Now()
 				Art.Status = form.Status
 				fmt.Println("Art", Art)
@@ -159,6 +161,8 @@ func (CTRL *ArticleController) Post() {
 				Art.AllowReviews = form.AllowReviews
 				Art.TaggedUsers = form.TaggedUsers
 				Art.TopicTags = form.TopicTags
+				Art.FilmImage = form.FilmImage
+				Art.PosterImage = form.PosterImage
 				Art.CreateTime = time.Now()
 				Art.Status = form.Status
 				db.Insert(Art)

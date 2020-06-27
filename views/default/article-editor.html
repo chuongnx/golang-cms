@@ -116,7 +116,20 @@
             </label>
         </div>
     </div>
+    <div class="col-md-12 form-group">
 
+        <div class="col-md-4">
+            <label for="title">Ảnh phim</label>
+            <input type="text" class="form-control" id="filmImage" name="filmImage" value="{{.form.FilmImage}}">
+        </div>
+        <div class="col-md-4">
+            <label for="title">Ảnh trang chủ</label>
+            <input type="text" class="form-control" id="posterImage" name="posterImage" value="{{.form.PosterImage}}">
+        </div>
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+    </div>
     <div class="col-md-12 form-group">
         <label for="status">Trạng thái</label>
         <select id="status" name="status" class="form-control">

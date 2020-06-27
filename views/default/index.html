@@ -4,26 +4,25 @@
         <div id="carousel-example-generic" class="col-md-12 carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                {{ range $index, $element := .ArticleHightlights }}
+                <li data-target="#carousel-example-generic" data-slide-to="{{$index}}" class="{{if eq $index 0}}active{{end}}"></li>
+                {{end}}
             </ol>
             <!-- Wrapper for slides -->
-            {{ range .ArticleHightlights }}
+
             <div class="carousel-inner">
-                <div class="item active">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjE1MCIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE5cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MzAweDIwMDwvdGV4dD48L3N2Zz4="
-                        alt="...">
+                {{ range $index, $element := .ArticleHightlights }}
+                <div class="item {{if eq $index 0}}active{{end}}">
+                    <a href="/xem-phim/{{.Key}}-{{.Id}}.html">
+                        <img src="/static/uploads/{{.PosterImage}}" width="100%" alt="...">
+                    </a>
                     <div class="carousel-caption">
-
                         <h3>{{.Title}}</h3>
-
-                        <p>{{.Title}}</p>
-
                     </div>
                 </div>
+                {{end}}
             </div>
-            {{end}}
+
             <!-- Controls -->
             <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
@@ -49,7 +48,7 @@
         <div class="col-md-3">
             <div class="thumbnail">
                 <a href="/xem-phim/{{.Key}}-{{.Id}}.html">
-                    <img src="/static/uploads/season-se956-portrait.jpg" data-src="holder.js/300x200" alt="...">
+                    <img src="/static/uploads/{{.FilmImage}}" data-src="holder.js/300x200" alt="...">
                 </a>
                 <div class="caption">
                     <h5>{{.Title}}</h5>

@@ -30,6 +30,8 @@ type Article struct {
 	Stars          int // we may need redis help with this
 	AllowComments  bool
 	AllowReviews   bool
+	FilmImage      string            `orm:"column(filmImage);size(300)" `
+	PosterImage    string            `orm:"column(posterImage);size(300)" `
 	TopicTags      string            `orm:"column(topictags);size(300)" `
 	TaggedUsers    string            `orm:"column(taggedusers);size(300)" `
 	Category       string            `orm:"column(category);size(1000)"`

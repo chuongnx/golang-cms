@@ -28,6 +28,9 @@ func (CTRL *IndexController) Get() {
 	paginator := pagination.SetPaginator(CTRL.Ctx, pageSize, total)
 	db.QueryTable("article").OrderBy("-title").Limit(pageSize, paginator.Offset()).All(articles)
 	db.QueryTable("article").Filter("status__contains", "TRANG_CHU").OrderBy("-title").All(articlesHightlight)
+	//log.Fatal(articlesHightlight)
+	//println("articlesHightlight", articlesHightlight)
+	//fmt.Printf("%+v\n", &articlesHightlight)
 	CTRL.Data["paginator"] = paginator
 	CTRL.Data["Articles"] = articles
 	CTRL.Data["ArticleHightlights"] = articlesHightlight

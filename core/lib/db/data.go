@@ -16,7 +16,7 @@ func InsertDemoData() bool {
 
 	db := MainDatabase.Orm
 	db.Using("default")
-	category := models.Category{Key: "hanh-dong", Name: "Phim hành động"}
+	category := models.Category{Key: "hanh-dong", Name: "Hành động"}
 	user := models.User{Username: "admin"}
 	salt := utils.GetRandomString(10)
 	encodedPassword := salt + "$" + utils.EncodePassword("admin", salt)
@@ -37,7 +37,21 @@ func InsertDemoData() bool {
 		User:     &user}
 	db.Insert(&user)
 	db.Insert(&category)
-	category = models.Category{Key: "tinh-cam", Name: "Phim tình cảm"}
+	category = models.Category{Key: "tinh-cam", Name: "Tình cảm"}
+	db.Insert(&category)
+	category = models.Category{Key: "vo-thuat", Name: "Võ thuật"}
+	db.Insert(&category)
+	category = models.Category{Key: "hoat-hinh", Name: "Hoạt hình"}
+	db.Insert(&category)
+	category = models.Category{Key: "phieu-luu", Name: "Phiêu lưu"}
+	db.Insert(&category)
+	category = models.Category{Key: "hai-huoc", Name: "Hài hước"}
+	db.Insert(&category)
+	category = models.Category{Key: "kinh-di", Name: "Kinh dị"}
+	db.Insert(&category)
+	category = models.Category{Key: "hinh-su", Name: "Hình sự"}
+	db.Insert(&category)
+	category = models.Category{Key: "chien-tranh", Name: "Chiến tranh"}
 	db.Insert(&category)
 	db.Insert(&article)
 	htmlblock := models.Block{Name: "Default html block1", Type: "html", IsActive: true, Position: 1, Content: "{\"body\": \"this is a test for default blocks position 1 !\"}"}
@@ -62,6 +76,8 @@ func InsertDemoData() bool {
 			Content:      f.Name(),
 			Category:     category.Key,
 			User:         &user,
+			FilmImage:    "season-se956-portrait.jpg",
+			PosterImage:  "thusinhbongdem.png",
 			Status:       "CHUA_DUYET",
 		}
 		fmt.Println(article)

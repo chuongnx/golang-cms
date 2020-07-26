@@ -44,6 +44,7 @@ func init() {
 		new(User),
 		new(Profile),
 		new(Article),
+		new(ArticleFile),
 		new(ArticleComment),
 		new(Category),
 		new(ArticleLike),

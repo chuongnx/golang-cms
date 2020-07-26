@@ -26,6 +26,19 @@
 
         </div>
     </div>
+    {{if eq .Article.Type 1}}
+    <div class="col-md-12">
+        <div>
+            {{ range $index, $element := $.ArticleFile }}
+            <div class="col-md-1 item {{if eq $index 0}}active{{end}}">
+                <a href="/xem-phim/{{$.Article.Key}}-{{$.Article.Id}}-{{.Id}}.html">
+                    {{.Title}}
+                </a>
+            </div>
+            {{end}}
+        </div>
+    </div>
+    {{end}}
     <div class="col-md-12">
         <div>
             <h4>{{.Article.Title}}</h4>

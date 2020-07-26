@@ -1,10 +1,13 @@
 package admins
 
 import (
+	"encoding/json"
 	"fmt"
 	"strconv"
+	"strings"
 	"time"
 
+	"github.com/astaxie/beego/httplib"
 	"github.com/chuongnx/beego/utils/pagination"
 	"github.com/chuongnx/golang-cms/models"
 )
@@ -74,6 +77,19 @@ func (CTRL *ArticleController) Get() {
 		Art.Id = ArtID
 		db.Read(Art, "Id")
 
+		type Detail struct {
+			Code      string `json:"code"`
+			Name      string `json:"name"`
+			Rating    int    `json:"rating"`
+			Thumbnail string `json:"thumbnail"`
+			Summary   string `json:"summary"`
+		}
+		req := httplib.Get("http://vuahd.tv/api/movies/i11084?ext=1&lang=vi")
+		detail := Detail{}
+		arrbyte, _ := req.Bytes()
+		err = json.Unmarshal(arrbyte, &detail)
+		fmt.Println(detail.Summary)
+		CTRL.Data["data"] = &detail
 		CTRL.Data["form"] = &Art
 		cats := new([]models.Category)
 		db.QueryTable("category").All(cats)
@@ -188,4 +204,81 @@ func (CTRL *ArticleController) Delete() {
 		db.Delete(Art, "Id")
 		CTRL.Redirect("/admin/article", 302)
 	}
+}
+
+// Post create/update article
+func (CTRL *ArticleController) SyncData() {
+	db := CTRL.GetDB()
+	type User struct {
+		Code      string  `json:"code"`
+		Name      string  `json:"name"`
+		Rating    float32 `json:"rating"`
+		Thumbnail string  `json:"thumbnail"`
+	}
+	type Detail struct {
+		Code      string  `json:"code"`
+		Name      string  `json:"name"`
+		NameVn    string  `json:"name_vn"`
+		Rating    float32 `json:"rating"`
+		Duration  string  `json:"duration"`
+		Thumbnail string  `json:"thumbnail"`
+		Summary   string  `json:"summary"`
+	}
+	users := []User{}
+	ArtID, err := strconv.Atoi(CTRL.Ctx.Input.Param(":id"))
+	println("ArtID", ArtID)
+	if err != nil {
+		//	CTRL.Abort("403")
+	}
+	data := new(interface{})
+	req := httplib.Get("http://vuahd.tv/api/movies?pg_size=10&page=1")
+	req.ToJSON(data)
+	arrbyte, err := req.Bytes()
+	println(err)
+	err = json.Unmarshal(arrbyte, &users)
+	println(err)
+	articles := new([]*models.Article)
+	db.QueryTable("article").OrderBy("-title").Limit(-1).All(articles)
+
+	for _, article := range *articles {
+
+		req := httplib.Get("http://vuahd.tv/api/movies/" + article.Key + "?ext=1&lang=vi")
+		detail := Detail{}
+		arrbyte, err = req.Bytes()
+		err = json.Unmarshal(arrbyte, &detail)
+		//fmt.Println(i, s.Code)
+		//pic := httplib.Get(`http://vuahd.tv` + detail.Thumbnail)
+		//err = pic.ToFile(detail.Thumbnail)
+		//println("savefile", s.Code)
+		//Art := new(models.Article)
+		//user := new(models.User)
+		//Art.Key = s.Code
+		//article := models.Article{Key: "i12019"}
+
+		//fmt.Println("xxxxx", i, article.Key)
+		article.Title = detail.NameVn
+		//article.FileName = detail.Name
+		article.Score = detail.Rating
+		article.Duration = detail.Duration
+		article.ShortContent = detail.Summary
+		article.Content = detail.Summary
+		article.FilmImage = strings.Replace(detail.Thumbnail, "/static/upload_images/", "", 1)
+		article.Status = "DA_DUYET"
+		db.Update(article)
+		/*
+			Art.Title = detail.Name_vn
+			Art.FileName = detail.Name
+			Art.Score = detail.Rating
+			Art.ShortContent = detail.Summary
+			Art.Content = detail.Summary
+			Art.FilmImage = detail.Thumbnail
+			Art.Status = "CHUA_DUYET"
+			db.Update(Art)
+		*/
+	}
+
+	//db := CTRL.GetDB("default")
+
+	CTRL.Data["json"] = &data
+	CTRL.ServeJSON()
 }

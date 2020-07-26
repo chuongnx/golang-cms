@@ -81,7 +81,7 @@ func (CTRL *LoginController) Register() {
 		fmt.Println(o.Insert(profile))
 		fmt.Println(o.Insert(user))
 
-		CTRL.Redirect("/", 302)
+		CTRL.Redirect("/admin/", 302)
 
 	} else {
 		CTRL.Data["form"] = form

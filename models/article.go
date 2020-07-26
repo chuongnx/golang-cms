@@ -8,15 +8,16 @@ import (
 
 // Article model articles in db
 type Article struct {
-	Id           int    `orm:"column(id);auto"`
-	Key          string `orm:"column(key);size(255);"`
-	User         *User  `orm:"rel(fk)"`
-	FileName     string `orm:"column(filename);size(255);"`
-	Title        string `orm:"column(title);size(255);"`
-	ShortContent string `orm:"column(shortcontent);size(4000)"`
-	Content      string `orm:"column(content);size(4000)"`
-	Score        int    `orm:"column(score);"`
-	PublishDate  string `orm:"column(publish_date);"`
+	Id           int     `orm:"column(id);auto"`
+	Code         string  `orm:"column(code);size(255);"`
+	Key          string  `orm:"column(key);size(255);"`
+	User         *User   `orm:"rel(fk)"`
+	FileName     string  `orm:"column(filename);size(255);"`
+	Title        string  `orm:"column(title);size(255);"`
+	ShortContent string  `orm:"column(shortcontent);size(4000)"`
+	Content      string  `orm:"column(content);size(4000)"`
+	Score        float32 `orm:"column(score);"`
+	PublishDate  string  `orm:"column(publish_date);"`
 
 	Director       string    `orm:"column(director);size(100)"`
 	Actor          string    `orm:"column(actor);size(1000)"`
@@ -41,6 +42,19 @@ type Article struct {
 	Hightlight     string            `orm:"column(hightlight);size(20)"`
 }
 
+type ArticleFile struct {
+	Id         int    `orm:"column(id);auto"`
+	ArticleId  int    `orm:"column(article_id)"`
+	Key        string `orm:"column(key);size(255);"`
+	Code       string `orm:"column(code);size(255);"`
+	FileName   string `orm:"column(filename);size(255);"`
+	Title      string `orm:"column(title);size(255);"`
+	Status     string `orm:"column(status);size(100)"`
+	StreamSize int    `orm:"column(stream_size)"`
+	BitRate    int    `orm:"column(bit_rate)"`
+	ViewCount  int    `orm:"column(view_count)"`
+}
+
 // ArticleComment model articles_comments in db
 type ArticleComment struct {
 	Id      int            `orm:"column(id);auto"`
@@ -54,6 +68,7 @@ type Category struct {
 	Id   int    `orm:"column(id);auto"`
 	Key  string `orm:"column(key);size(128)"`
 	Name string `orm:"column(name);size(128)"`
+	Type int    `orm:"column(type)"`
 	//Articles []*Article `orm:"reverse(many)"`
 }
 

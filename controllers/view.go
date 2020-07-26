@@ -23,21 +23,60 @@ func (CTRL *ViewController) Get() {
 	if err != nil {
 		CTRL.Abort("403")
 	}
+	FileID, errfile := strconv.Atoi(CTRL.Ctx.Input.Param(":fileId"))
+	if errfile != nil {
+		CTRL.Abort("403")
+	}
 	db := CTRL.GetDB("default")
 	if ArtID != 0 {
 		Art := new(models.Article)
 		Art.Id = ArtID
 		db.Read(Art, "Id")
 		CTRL.Data["Article"] = Art
-		//todo
-		Art.FileName = "IndependenceDayResurgence2016720pHDRip.mp4"
-		filename, err := utils.Encrypt(Art.FileName, []byte("phimphimphimphimphimphimphimphim"))
-		if err != nil {
-			// TODO: Properly handle error
-			log.Fatal(err)
+
+		var ArtFile []models.ArticleFile
+
+		num, err := db.QueryTable("article_file").Filter("article_id__contains", ArtID).OrderBy("code").All(&ArtFile)
+
+		println("ArtFile.num", FileID, num, err)
+		if FileID == 0 {
+			if Art.Type == 0 {
+				//Art.FileName = "IndependenceDayResurgence2016720pHDRip.mp4"
+				for _, row := range ArtFile {
+					//fmt.Println(row)
+
+					Art.FileName, err = utils.Encrypt(row.FileName, []byte("phimphimphimphimphimphimphimphim"))
+					if err != nil {
+						// TODO: Properly handle error
+						log.Fatal(err)
+					}
+				}
+
+			} else {
+				for _, row := range ArtFile {
+					Art.FileName, err = utils.Encrypt(row.FileName, []byte("phimphimphimphimphimphimphimphim"))
+					if err != nil {
+						// TODO: Properly handle error
+						log.Fatal(err)
+					}
+					break
+				}
+			}
+		} else {
+			for _, row := range ArtFile {
+				if row.Id == FileID {
+					Art.FileName, err = utils.Encrypt(row.FileName, []byte("phimphimphimphimphimphimphimphim"))
+					if err != nil {
+						// TODO: Properly handle error
+						log.Fatal(err)
+					}
+					break
+				}
+			}
 		}
 
-		CTRL.Data["FileName"] = filename + ".mp4"
+		CTRL.Data["FileName"] = Art.FileName + ".mp4"
+		CTRL.Data["ArticleFile"] = ArtFile
 		CTRL.ConfigPage("view.html")
 	}
 }

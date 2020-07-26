@@ -17,8 +17,7 @@ func init() {
 	beego.SetStaticPath("/static", "static")
 	// guests request
 	beego.Router("/", &controllers.IndexController{})
-
-	beego.Router("/xem-phim/:name-:id:int.html", &controllers.ViewController{})
+	beego.Router("/xem-phim/:name-:id:int-:fileId:int.html", &controllers.ViewController{})
 	beego.Router("/channel/:page:int", &controllers.IndexController{}, "get:GetPage")
 	beego.Router("/video/:videoid", &controllers.ViewController{}, "get:Video")
 	beego.Router("/phim/:category.html", &controllers.IndexController{}, "get:Category")
@@ -31,6 +30,7 @@ func init() {
 		beego.NSRouter("/register", &admins.LoginController{}, "get:RegisterView;post:Register"),
 		beego.NSRouter("/article", &admins.ArticleController{}, "get:GetAll"),
 		beego.NSRouter("/article/:id:int/delete", &admins.ArticleController{}, "get:Delete"),
+		beego.NSRouter("/syncdata", &admins.ArticleController{}, "get:SyncData"),
 		beego.NSRouter("/article/:id:int/:action:string", &admins.ArticleController{}, "get:Get;post:Post"),
 		beego.NSRouter("/profile/:id:int/:action:string", &admins.ProfileController{}, "get:UserPanelView"),
 	)

@@ -83,5 +83,17 @@ func InsertDemoData() bool {
 		fmt.Println(article)
 		db.Insert(&article)
 	}
+	articleFile := models.ArticleFile{
+		Key:        "",
+		Code:       "",
+		Title:      "",
+		FileName:   "",
+		Status:     "CHUA_DUYET",
+		StreamSize: 0,
+		BitRate:    0,
+		ViewCount:  0,
+	}
+	db.Insert(&articleFile)
+
 	return true
 }

@@ -18,7 +18,7 @@ type ArticleForm struct {
 	User          *User             `form:"user" valid:"Required;"`
 	FileName      string            `form:"file_name" valid:"Required;MinSize(1);MaxSize(300)"`
 	ShortContent  string            `form:"short_content"`
-	Score         int               `form:"score" `
+	Score         float32           `form:"score" `
 	PublishDate   string            `form:"publish_date" `
 	Director      string            `form:"director" `
 	Actor         string            `form:"actor" `

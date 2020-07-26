@@ -1,5 +1,5 @@
 FROM golang:1.10-alpine3.7
-MAINTAINER Dionys Rosario <chuongnx@gmail.com>
+MAINTAINER Ngo Xuan Chuong <chuongnx@gmail.com>
 
 RUN apk add --no-cache git gcc g++ \
  && go get -u github.com/chuongnx/beego \
